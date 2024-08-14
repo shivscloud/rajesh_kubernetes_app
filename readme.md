@@ -1,10 +1,12 @@
-Here’s the updated `README.md` with different GIFs added throughout the sections for visual appeal:
 
 ---
 
 # Flask Application Deployment on Kubernetes
 
 This project demonstrates how to deploy a Flask application on a Kubernetes cluster using Docker. The application connects to a MongoDB instance and is configured with environment variables for flexibility. This README provides a comprehensive guide to setting up, deploying, and troubleshooting the application.
+## Docker Image
+# https://hub.docker.com/repository/docker/rajeshsingam/rajesh_singamsetti_app/general
+# docker pull rajeshsingam/rajesh_singamsetti_app:latest
 
 ## Table of Contents
 
@@ -18,7 +20,7 @@ This project demonstrates how to deploy a Flask application on a Kubernetes clus
   - [Troubleshooting Inside the Container](#troubleshooting-inside-the-container)
 - [License](#license)
 
-## Prerequisites ![Prerequisites GIF](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
+## Prerequisites 
 
 Before starting, ensure you have the following installed:
 
@@ -27,7 +29,7 @@ Before starting, ensure you have the following installed:
 - A running Kubernetes cluster
 - MongoDB deployed in the Kubernetes cluster
 
-## Setup Instructions ![Setup Instructions GIF](https://media.giphy.com/media/3ohs7KAU4BuOaP5x1W/giphy.gif)
+## Setup Instructions 
 
 ### ➡️ Building and Tagging the Docker Image
 
@@ -49,7 +51,7 @@ Before starting, ensure you have the following installed:
    docker push rajeshsingam/rajesh_singamsetti_app:v1
    ```
 
-### ➡️ Deploying to Kubernetes ![Deploying to Kubernetes GIF](https://media.giphy.com/media/fvZcP96w9BXwLA1hck/giphy.gif)
+### ➡️ Deploying to Kubernetes 
 
 1. Apply the Kubernetes deployment and service configurations:
 
@@ -71,12 +73,11 @@ Before starting, ensure you have the following installed:
 
    Note the `NodePort` to access your application in a browser.
 
-### ➡️ Accessing the Application ![Accessing the Application GIF](https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif)
+### ➡️ Accessing the Application 
 
 Open your web browser and navigate to `http://<NodeIP>:<NodePort>` to access the Flask application.
 
-## Troubleshooting ![Troubleshooting GIF](https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif)
-
+## Troubleshooting 
 ### ➡️ Verifying MongoDB Connectivity
 
 To verify MongoDB connectivity from within the Flask container, execute the following command:
@@ -87,7 +88,7 @@ kubectl exec -it <flask-pod-name> -- curl -v mongo-service:27017
 
 Replace `<flask-pod-name>` with the actual pod name.
 
-### ➡️ Troubleshooting Inside the Container ![Troubleshooting Inside GIF](https://media.giphy.com/media/5p4UASivxrH56/giphy.gif)
+### ➡️ Troubleshooting Inside the Container 
 
 If you need to troubleshoot inside the Flask container, follow these steps:
 
@@ -126,10 +127,6 @@ If you need to troubleshoot inside the Flask container, follow these steps:
    ```
 
 
-## License ![License GIF](https://media.giphy.com/media/l1J9u3TZfpmeDLkD2/giphy.gif)
+## License 
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-This version of the `README.md` includes GIFs to make each section more engaging and visually appealing. Let me know if you want to make any more changes!
