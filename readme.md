@@ -5,8 +5,8 @@
 
 This project demonstrates how to deploy a Flask application on a Kubernetes cluster using Docker. The application connects to a MongoDB instance and is configured with environment variables for flexibility. This README provides a comprehensive guide to setting up, deploying, and troubleshooting the application.
 ## Docker Image
-# https://hub.docker.com/repository/docker/rajeshsingam/rajesh_singamsetti_app/general
-# docker pull rajeshsingam/rajesh_singamsetti_app:latest
+- [https://hub.docker.com/repository/docker/rajeshsingam/rajesh_singamsetti_app/general]
+- [docker pull rajeshsingam/rajesh_singamsetti_app:latest]
 
 ## Table of Contents
 
