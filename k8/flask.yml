@@ -1,0 +1,90 @@
+#  Detail Info:
+# Init Container:
+
+# Purpose: Ensures MongoDB is accessible before the main Flask application container starts.
+# Command: It uses nc (Netcat) to check the connection to mongo-service on port 27017 repeatedly until it succeeds.
+# Liveness Probe:
+
+# Purpose: Checks if the Flask container is alive and should keep running.
+# HTTP Get Request: Sends a request to the root (/) of your Flask application to ensure it responds.
+# initialDelaySeconds: Delay before the probe is initiated (20 seconds).
+# periodSeconds: Interval between checks (10 seconds).
+# Readiness Probe:
+
+# Purpose: Checks if the Flask container is ready to accept traffic.
+# HTTP Get Request: Sends a request to the root (/) of your Flask application.
+# initialDelaySeconds: Delay before the probe is initiated (10 seconds).
+# periodSeconds: Interval between checks (5 seconds).   
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+  labels:
+    app: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      # Init container to verify MongoDB accessibility before the main container starts
+      initContainers:
+      - name: init-mongo-check
+        image: busybox
+        command: ['sh', '-c']
+        args: ["until nc -zv mongo-service 27017; do echo waiting for mongo; sleep 2; done; echo MongoDB is up"]
+
+      # Main application container
+      containers:
+      - name: flask
+        image: rajeshsingam/rajesh_singamsetti_app:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"
+        - name: MONGO_USER
+          value: "root"
+        - name: MONGO_PASSWORD
+          value: "example"
+        - name: MONGO_HOST
+          value: "mongo-service"
+        - name: MONGO_PORT
+          value: "27017"
+        
+        # Liveness probe to ensure the container is running
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+
+        # Readiness probe to ensure the container is ready to serve traffic
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+  labels:
+    app: flask
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30002
+  selector:
+    app: flask
